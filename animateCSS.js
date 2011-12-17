@@ -44,6 +44,9 @@
 
                 // Event triggered when the animation has finished
                 $this.bind('animationend webkitAnimationEnd oAnimationEnd', function () {
+                
+                    // Remove the classes so they can be added again later
+                    $this.removeClass('animated ' + effect);
 
                     // Add a callback event
                     if (typeof callback == 'function') {
