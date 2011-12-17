@@ -25,3 +25,20 @@ $('#your-id').animateCSS('fadeIn', 1000, function(){
     alert('Boom! Animation Complete');
 });
 </pre>
+
+If you want to hide an element when the page loads and then apply an effect, it might look something like this:
+<pre>
+<style>    
+    .js #your-id {
+        visibility:hidden;
+    }
+</style>
+
+$(window).load( function(){
+    $('#your-id').animateCSS('fadeIn', 1000, function(){
+        alert('Boom! Animation Complete');
+    });
+});
+</pre>
+
+Remember to use a .js (or .no-js depending on how you role) so that the element still displays for non javascript users (and Google previews).
