@@ -28,11 +28,11 @@ $('#your-id').animateCSS('fadeIn', 1000, function(){
 
 If you want to hide an element when the page loads and then apply an effect, it might look something like this:
 <pre>
-&lt;style&rt;
+&lt;style&gt;
     .js #your-id {
         visibility:hidden;
     }
-&lt;/style&rt;
+&lt;/style&gt;
 
 $(window).load( function(){
     $('#your-id').animateCSS('fadeIn', 1000, function(){
