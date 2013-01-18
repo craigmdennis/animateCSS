@@ -3,12 +3,11 @@
     "title": "jQuery animateCSS",
     "description": "A jQuery plugin to dynamically apply animate.css animations with callbacks",
     "keywords": [
-        "animateCSS",
         "animation",
-        "callbacks",
-        "animate"
+        "CSS3",
+        "callbacks"
     ],
-    "version": "1.0.0",
+    "version": "1.0.2",
     "author": {
         "name": "Craig Dennis",
         "url": "https://github.com/craigmdennis"
