@@ -1,31 +1,37 @@
-(function ($) {
+(function ($, window, document, undefined) {
+
+    // Function-level strict mode syntax
+  'use strict';
 
     $.fn.animateCSS = function (effect, delay, callback) {
 
         // Return this to maintain chainability
         return this.each(function () {
 
-            // Cache $(this) for speed
-            var $this = $(this);
+            // Cache $(this) for speed and compression
+            var $this = $(this),
+                transitionEnd = "webkitAnimationEnd mozAnimationEnd msAnimationEnd oAnimationEnd animationEnd",
+                animated = "animated",
+                visibility = "visibility",
+                visible = "visible",
+                hidden = "hidden";
 
             // Create a function we can call later
             function run() {
 
                 // Add the animation effect with classes
-                $this.addClass('animated ' + effect);
+                $this.addClass( animated + " " + effect);
 
                 // Check if the elemenr has been hidden to start with
-                if ($this.css('visibility') == 'hidden') {
+                if ($this.css( visibility ) === hidden) {
 
                     // If it has, show it (after the class has been added)
-                    $this.css({
-                        'visibility': 'visible'
-                    });
+                    $this.css( visibility, visible);
 
                 }
 
                 // If the element is hidden
-                if ($this.is(':hidden')) {
+                if ($this.is(":" + hidden)) {
 
                     // Show it
                     $this.show();
@@ -33,19 +39,19 @@
                 }
 
                 // Event triggered when the animation has finished
-                $this.bind('animationend webkitAnimationEnd oAnimationEnd', function () {
-                
+                $this.bind( transitionEnd, function () {
+
                     // Remove the classes so they can be added again later
-                    $this.removeClass('animated ' + effect);
+                    $this.removeClass(animated + " " + effect);
 
                     // Add a callback event
-                    if (typeof callback == 'function') {
+                    if (typeof callback === "function") {
 
                         // Execute the callback
                         callback.call(this);
 
                         // Unbind the event handlers
-                        $this.unbind('animationend webkitAnimationEnd oAnimationEnd');
+                        $this.unbind( transitionEnd );
 
                     }
 
@@ -53,10 +59,10 @@
 
             }
 
-            // Check if delay exists or if it's a callback
-            if (!delay || typeof delay == 'function') {
+            // Check if delay exists or if it"s a callback
+            if (!delay || typeof delay === "function") {
 
-                // If it's a callback, move it to callback so we can call it later
+                // If it"s a callback, move it to callback so we can call it later
                 callback = delay;
 
                 // Run the animation (without delay)
@@ -65,13 +71,7 @@
             } else {
 
                 // Start a counter so we can delay the animation if required
-                var animation = setTimeout(function () {
-
-                    // Run the animation (with delay)
-                    run();
-
-                // Specify the delay
-                }, delay);
+                setTimeout( run, delay );
 
             }
 
@@ -79,4 +79,4 @@
 
     };
 
-})(jQuery);
+})(jQuery, window, document);
