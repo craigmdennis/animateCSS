@@ -10,7 +10,7 @@
 
             // Cache $(this) for speed and compression
             var $this = $(this),
-                transitionEnd = "webkitAnimationEnd mozAnimationEnd msAnimationEnd oAnimationEnd animationEnd",
+                transitionEnd = "webkitAnimationEnd oanimationend msAnimationEnd animationend",
                 animated = "animated",
                 visibility = "visibility",
                 visible = "visible",
