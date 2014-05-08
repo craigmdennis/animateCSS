@@ -1,3 +1,5 @@
+This is my extention on Craig Dennis' fab plugin. It allows us to pass a custom "animated" class for different timings, etc.
+
 Use the animate.css animations from http://daneden.me/animate/
 
 ## USAGE:
