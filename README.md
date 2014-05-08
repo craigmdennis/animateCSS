@@ -21,8 +21,20 @@ $('#your-id').animateCSS('fadeIn', 500);
 
 With delay AND callback
 <pre>
-$('#your-id').animateCSS('fadeIn', 1000, function(){
+$('#your-id').animateCSS('fadeIn', function(){
     alert('Boom! Animation Complete');
+}, {
+    delay: 1000
+});
+</pre>
+
+With delay, callback AND custom animated class
+<pre>
+$('#your-id').animateCSS('fadeIn', function(){
+    alert('Boom! Animation Complete');
+}, {
+    delay: 1000,
+    animateClass: 'myAnimatedClass'
 });
 </pre>
 
@@ -35,8 +47,10 @@ If you want to hide an element when the page loads and then apply an effect, it 
 &lt;/style&gt;
 
 $(window).load( function(){
-    $('#your-id').animateCSS('fadeIn', 1000, function(){
+    $('#your-id').animateCSS('fadeIn', function(){
         alert('Boom! Animation Complete');
+    }, {
+        delay: 1000
     });
 });
 </pre>
