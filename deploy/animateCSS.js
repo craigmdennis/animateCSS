@@ -4,6 +4,11 @@
   'use strict';
 
     $.fn.animateCSS = function (effect, callback, params) {
+        
+        // Check if there were params hand over in the callback 
+        if (callback && typeof callback !== "function") {
+            params = callback
+        }
 
         // Deal with params array  and set some default values
         var settings = $.extend({
@@ -82,4 +87,4 @@
 
     };
 
-})(jQuery, window, document);(function(e,t,n,r){"use strict";e.fn.animateCSS=function(t,n,r){return this.each(function(){function l(){i.addClass(o+" "+t);if(i.css(u)===f){i.css(u,a)}if(i.is(":"+f)){i.show()}i.bind(s,function(){i.removeClass(o+" "+t);if(typeof r==="function"){r.call(this);i.unbind(s)}})}var i=e(this),s="webkitAnimationEnd oanimationend msAnimationEnd animationend",o="animated",u="visibility",a="visible",f="hidden";if(!n||typeof n==="function"){r=n;l()}else{setTimeout(l,n)}})}})(jQuery,window,document);
+})(jQuery, window, document);(function(c,b,a,d){c.fn.animateCSS=function(f,h,g){var e=c.extend({delay:0,animateClass:"animated"},g);return this.each(function(){var n=c(this),j="webkitAnimationEnd oanimationend msAnimationEnd animationend",k=e.animateClass,i="visibility",o="visible",l="hidden";function m(){n.addClass(k+" "+f);if(n.css(i)===l){n.css(i,o)}if(n.is(":"+l)){n.show()}n.bind(j,function(){n.removeClass(k+" "+f);if(typeof h==="function"){h.call(this);n.unbind(j)}})}if(!e.delay||e.delay==0){m()}else{setTimeout(m,e.delay)}})}})(jQuery,window,document);(function(c,a,d,b){c.fn.animateCSS=function(e,g,f){return this.each(function(){function j(){m.addClass(q+" "+e);if(m.css(k)===p){m.css(k,h)}if(m.is(":"+p)){m.show()}m.bind(n,function(){m.removeClass(q+" "+e);if(typeof f==="function"){f.call(this);m.unbind(n)}})}var m=c(this),n="webkitAnimationEnd oanimationend msAnimationEnd animationend",q="animated",k="visibility",h="visible",p="hidden";if(!g||typeof g==="function"){f=g;j()}else{setTimeout(j,g)}})}})(jQuery,window,document);
