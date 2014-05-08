@@ -4,6 +4,11 @@
   'use strict';
 
     $.fn.animateCSS = function (effect, callback, params) {
+        
+        // Check if there were params hand over in the callback 
+        if (callback && typeof callback !== "function") {
+            params = callback
+        }
 
         // Deal with params array  and set some default values
         var settings = $.extend({
