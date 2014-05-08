@@ -16,7 +16,7 @@ $('#your-id').animateCSS('fadeIn', function(){
 
 With delay (in ms)
 <pre>
-$('#your-id').animateCSS('fadeIn', 500);
+$('#your-id').animateCSS('fadeIn', { delay: 500 });
 </pre>
 
 With delay AND callback
