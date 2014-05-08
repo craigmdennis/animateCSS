@@ -3,15 +3,21 @@
     // Function-level strict mode syntax
   'use strict';
 
-    $.fn.animateCSS = function (effect, delay, callback) {
+    $.fn.animateCSS = function (effect, callback, params) {
 
+        // Deal with params array  and set some default values
+        var settings = $.extend({
+            delay: 0,
+            animateClass: 'animated'
+        }, params);
+        
         // Return this to maintain chainability
         return this.each(function () {
 
             // Cache $(this) for speed and compression
             var $this = $(this),
                 transitionEnd = "webkitAnimationEnd oanimationend msAnimationEnd animationend",
-                animated = "animated",
+                animated = settings.animateClass,
                 visibility = "visibility",
                 visible = "visible",
                 hidden = "hidden";
@@ -60,10 +66,7 @@
             }
 
             // Check if delay exists or if it"s a callback
-            if (!delay || typeof delay === "function") {
-
-                // If it"s a callback, move it to callback so we can call it later
-                callback = delay;
+            if (!settings.delay || settings.delay == 0) {
 
                 // Run the animation (without delay)
                 run();
@@ -71,7 +74,7 @@
             } else {
 
                 // Start a counter so we can delay the animation if required
-                setTimeout( run, delay );
+                setTimeout( run, settings.delay );
 
             }
 
