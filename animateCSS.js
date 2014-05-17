@@ -71,7 +71,9 @@
             } else {
 
                 // Start a counter so we can delay the animation if required
-                setTimeout( run, delay );
+                setTimeout( function () {
+                    run();
+                }, delay );
 
             }
 
