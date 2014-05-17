@@ -1,5 +1,3 @@
-This is my extension on Craig Dennis' fab plugin. It allows us to pass a custom "animated" class for different timings, etc.
-
 Use the animate.css animations from http://daneden.me/animate/
 
 ## USAGE:
@@ -18,25 +16,13 @@ $('#your-id').animateCSS('fadeIn', function(){
 
 With delay (in ms)
 <pre>
-$('#your-id').animateCSS('fadeIn', { delay: 500 });
+$('#your-id').animateCSS('fadeIn', 500);
 </pre>
 
 With delay AND callback
 <pre>
-$('#your-id').animateCSS('fadeIn', function(){
+$('#your-id').animateCSS('fadeIn', 1000, function(){
     alert('Boom! Animation Complete');
-}, {
-    delay: 1000
-});
-</pre>
-
-With delay, callback AND custom animated class
-<pre>
-$('#your-id').animateCSS('fadeIn', function(){
-    alert('Boom! Animation Complete');
-}, {
-    delay: 1000,
-    animateClass: 'myAnimatedClass'
 });
 </pre>
 
@@ -49,10 +35,8 @@ If you want to hide an element when the page loads and then apply an effect, it 
 &lt;/style&gt;
 
 $(window).load( function(){
-    $('#your-id').animateCSS('fadeIn', function(){
+    $('#your-id').animateCSS('fadeIn', 1000, function(){
         alert('Boom! Animation Complete');
-    }, {
-        delay: 1000
     });
 });
 </pre>
