@@ -59,8 +59,8 @@
 
             }
 
-            // Check if delay exists or if it"s a callback
-            if (!delay || typeof delay === "function") {
+            // Check if delay is a callback
+            if (typeof delay === "function") {
 
                 // If it"s a callback, move it to callback so we can call it later
                 callback = delay;
