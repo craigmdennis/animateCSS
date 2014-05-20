@@ -1,44 +1,31 @@
-Use the animate.css animations from http://daneden.me/animate/
+# Animate CSS jQuery Plugin
 
-## USAGE:
+A jQuery plugin to dynamically apply animate.css animations with callbacks
 
-Basic
-<pre>
-$('#your-id').animateCSS('fadeIn');
-</pre>
+## Getting Started
 
-With callback
-<pre>
-$('#your-id').animateCSS('fadeIn', function(){
-    alert('Boom! Animation Complete');
+Download the [production version][min] or the [development version][max].
+
+[min]: https://raw.github.com/craigmdennis/jquery-animatecss/master/dist/jquery.animatecss.min.js
+[max]: https://raw.github.com/craigmdennis/jquery-animatecss/master/dist/jquery.animatecss.js
+
+In your web page:
+
+```html
+<script src="jquery.js"></script>
+<script src="dist/animatecss.min.js"></script>
+<script>
+jQuery(function($) {
+  $.awesome(); // "awesome"
 });
-</pre>
+</script>
+```
 
-With delay (in ms)
-<pre>
-$('#your-id').animateCSS('fadeIn', 500);
-</pre>
+## Documentation
+_(Coming soon)_
 
-With delay AND callback
-<pre>
-$('#your-id').animateCSS('fadeIn', 1000, function(){
-    alert('Boom! Animation Complete');
-});
-</pre>
+## Examples
+_(Coming soon)_
 
-If you want to hide an element when the page loads and then apply an effect, it might look something like this:
-<pre>
-&lt;style&gt;
-    .js #your-id {
-        visibility:hidden;
-    }
-&lt;/style&gt;
-
-$(window).load( function(){
-    $('#your-id').animateCSS('fadeIn', 1000, function(){
-        alert('Boom! Animation Complete');
-    });
-});
-</pre>
-
-Remember to use a .js (or .no-js depending on how you role) so that the element still displays for non javascript users (and Google previews).
+## Release History
+_(Nothing yet)_

@@ -1,7 +1,3 @@
-node_modules
-.tmp
-.sass-cache
-bower_components
-
-.DS_Store
-.sublime-workspace
+/node_modules/
+/bower_components/
+dist
