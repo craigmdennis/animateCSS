@@ -19,6 +19,13 @@ module.exports = function (grunt) {
     clean: {
       files: ['dist']
     },
+
+    // Automatically inject Bower components into the HTML file
+    bowerInstall: {
+      src: ['src/index.jade'],
+      ignorePath: 'test/'
+    },
+
     concat: {
       options: {
         banner: '<%= banner %>',
@@ -29,6 +36,7 @@ module.exports = function (grunt) {
         dest: 'dist/jquery.<%= pkg.name %>.js'
       }
     },
+
     uglify: {
       options: {
         banner: '<%= banner %>'
@@ -38,6 +46,7 @@ module.exports = function (grunt) {
         dest: 'dist/jquery.<%= pkg.name %>.min.js'
       }
     },
+
     qunit: {
       all: {
         options: {
@@ -45,6 +54,34 @@ module.exports = function (grunt) {
         }
       }
     },
+
+    jade: {
+      options: {
+        pretty: true
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'src',
+          dest: 'test/',
+          src: 'index.jade',
+          ext: '.html'
+        }]
+      },
+    },
+
+    coffee: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'src',
+          src: '{,*/}*.coffee',
+          dest: 'test/',
+          ext: '.js'
+        }]
+      }
+    },
+
     jshint: {
       options: {
         reporter: require('jshint-stylish')
@@ -68,10 +105,23 @@ module.exports = function (grunt) {
         src: ['test/**/*.js']
       }
     },
+
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
         tasks: ['jshint:gruntfile']
+      },
+      jade: {
+        files: ['src/index.jade'],
+        tasks: ['jade']
+      },
+      bower: {
+        files: ['bower.json'],
+        tasks: ['bowerInstall']
+      },
+      coffee: {
+        files: ['src/{,*/}*.coffee'],
+        tasks: ['coffee']
       },
       src: {
         files: '<%= jshint.src.src %>',
@@ -80,12 +130,13 @@ module.exports = function (grunt) {
       test: {
         files: '<%= jshint.test.src %>',
         tasks: ['jshint:test', 'qunit']
-      }
+      },
     },
+
     connect: {
       server: {
         options: {
-          hostname: '*',
+          hostname: '0.0.0.0',
           port: 9000
         }
       }
@@ -93,11 +144,39 @@ module.exports = function (grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'connect', 'qunit', 'clean', 'concat', 'uglify']);
+  grunt.registerTask('default', [
+    'clean',
+    'test', // jade, coffeescript, jshint, qunit
+    'concat',
+    'uglify',
+  ]);
+
+  // Compile Jade and CoffeeScript
+  grunt.registerTask('compile', [
+    'newer:coffee',
+    'newer:jade'
+  ]);
+
+  // Install Bower components
+  grunt.registerTask('bowerInstall', [
+    'bower'
+  ]);
+
+  // Server task
   grunt.registerTask('server', function () {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve']);
   });
-  grunt.registerTask('serve', ['connect', 'watch']);
-  grunt.registerTask('test', ['jshint', 'connect', 'qunit']);
+
+  grunt.registerTask('serve', [
+    'compile', // jade, coffeescript
+    'connect',
+    'watch'
+  ]);
+
+  grunt.registerTask('test', [
+    'compile', // jade, coffeescript
+    'jshint',
+    'qunit'
+  ]);
 };

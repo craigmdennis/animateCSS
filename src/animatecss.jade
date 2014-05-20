@@ -1,0 +1,31 @@
+doctype
+
+html
+  head
+  meta(charset="utf-8")
+  title Animate CSS jQuery Plugin Test Suite
+
+  //- bower:css
+  link(rel="stylesheet", href="../bower_components/qunit/qunit/qunit.css", media="screen")
+  //- endbower
+
+body
+  #qunit
+    #qunit-fixture
+    span lame test markup
+    span normal test markup
+    span awesome test markup
+
+  //- bower:js
+  script(src="../bower_components/jquery/dist/jquery.js")
+  script(src="../bower_components/qunit/qunit/qunit.js")
+  //- endbower
+
+  //- Load local lib and tests
+  script(src="../src/animatecss.js")
+  script(src="animatecss_test.js")
+
+  //- Removing access to jQuery and $. But it'll still be available as _$, if you REALLY want to mess around with jQuery in the console. REMEMBER WE ARE TESTING A PLUGIN HERE, THIS HELPS ENSURE BEST PRACTICES. REALLY.
+
+  script.
+    window._$ = jQuery.noConflict(true)
