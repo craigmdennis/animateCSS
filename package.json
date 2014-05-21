@@ -8,7 +8,7 @@
     "animation",
     "callbacks"
   ],
-  "homepage": "https://github.com/craigmdennis/animatecss",
+  "homepage": "https://github.com/craigmdennis/animateCSS",
   "bugs": "https://github.com/craigmdennis/animateCSS/issues",
   "author": {
     "name": "Craig Dennis",
@@ -21,7 +21,8 @@
   },
   "licenses": [
     {
-      "type": "MIT"
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
     }
   ],
   "devDependencies": {
