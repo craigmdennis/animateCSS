@@ -15,7 +15,7 @@ In your web page:
 
 ```html
 <script src="jquery.js"></script>
-<script src="dist/animateCSS.min.js"></script>
+<script src="dist/animatecss.min.js"></script>
 <script>
 $(document).ready( function(){
   $('#your-id').animateCSS("fadeIn");
@@ -27,11 +27,14 @@ $(document).ready( function(){
 
 ```js
 {
-  infinite: false,
-  animationClass: "animate",
-  
+  infinite: false, // True or False
+  animationClass: "animate", // Can be any class
+  delay: 0 // Can be any value (in ms)
+  callback: // Any function
 }
 ```
+
+When using `infinite: true` and a delay, the delay will only occur before the first loop
 
 ## Examples
 
@@ -49,13 +52,16 @@ $('#your-id').animateCSS('fadeIn', function(){
 
 ### With delay (in ms)
 ```js
-$('#your-id').animateCSS('fadeIn', 500);
+$('#your-id').animateCSS('fadeIn', {delay: 500});
 ```
 
 ### With delay AND callback
 ```js
-$('#your-id').animateCSS('fadeIn', 1000, function(){
+$('#your-id').animateCSS('fadeIn', {
+  delay: 1000,
+  callback: function(){
     alert('Boom! Animation Complete');
+  }
 });
 ```
 
@@ -65,20 +71,19 @@ If you want to hide an element when the page loads and then apply an effect, it 
   .js #your-id {
       visibility:hidden;
   }
-</style>
 ```
 ```js
 $(window).load( function(){
-    $('#your-id').animateCSS('fadeIn', 1000, function(){
-        alert('Boom! Animation Complete');
-    });
+  $('#your-id').animateCSS('fadeIn', function(){
+    alert('Boom! Animation Complete');
+  });
 });
 ```
 
 ## Release History
 1.1.0
-- Rewritten in CoffeeScript
+- Rewrite in CoffeeScript
 - Allow custom `.animated` class
 - Allow for `.infinite` animation
-- Added grunt for consistent build output
-- Added Bower support
+- Add grunt for consistent build output
+- Add Bower support
