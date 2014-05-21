@@ -11,7 +11,7 @@ $.fn.extend
     # Default settings
     settings =
       effect: effect
-      delay: false
+      delay: 0
       animationClass: "animated",
       infinite: false
       callback: options
@@ -32,6 +32,13 @@ $.fn.extend
     animate = ( element ) ->
       if settings.infinite == true
         settings.animationClass += " infinite"
+
+      # Run a timer regardless of delay as 0 will fire instantly anyway
+      setTimeout  ->
+        addClass( element )
+      , settings.delay
+
+    addClass = ( element ) ->
       element.addClass( settings.effect + " " + settings.animationClass + " ")
 
     # Check if the element has been hidden to start with
@@ -40,11 +47,11 @@ $.fn.extend
       element.show() if element.is(":hidden")
 
     # Remove the animation classes the were applied
-    clean = ( element ) ->
+    removeClass = ( element ) ->
       element.removeClass( settings.effect + " " + settings.animationClass )
 
     callback = ( element ) ->
-      clean( element ) if settings.infinite == false
+      removeClass( element ) if settings.infinite == false
       if typeof settings.callback == "function"
         settings.callback.call(this)
 
