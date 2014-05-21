@@ -10,7 +10,6 @@ $.fn.extend
   animateCSS: (effect, options) ->
     # Default settings
     settings =
-      effect: effect
       delay: 0
       animationClass: "animated",
       infinite: false
@@ -39,7 +38,7 @@ $.fn.extend
       , settings.delay
 
     addClass = ( element ) ->
-      element.addClass( settings.effect + " " + settings.animationClass + " ")
+      element.addClass( effect + " " + settings.animationClass + " ")
 
     # Check if the element has been hidden to start with
     unhide = ( element ) ->
@@ -48,7 +47,7 @@ $.fn.extend
 
     # Remove the animation classes the were applied
     removeClass = ( element ) ->
-      element.removeClass( settings.effect + " " + settings.animationClass )
+      element.removeClass( effect + " " + settings.animationClass )
 
     callback = ( element ) ->
       removeClass( element ) if settings.infinite == false
