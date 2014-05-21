@@ -111,13 +111,13 @@ module.exports = function (grunt) {
 
     bump: {
       options: {
-        files: ['package.json', 'bower.json', '<%= pkg.name %>.jquery.json', 'CHANGELOG.md'],
+        files: ['package.json', 'bower.json', '<%= pkg.name %>.jquery.json'],
         push: true,
         pushTo: 'origin',
         createTag: true,
         tagName: 'v%VERSION%',
         tagMessage: 'Version %VERSION%',
-        commitFiles: '<%= bump.options.files %>',
+        commitFiles: ['<%= bump.options.files %>', 'CHANGELOG.md'],
         commitMessage: 'Bumped version to v%VERSION%'
       }
     },
