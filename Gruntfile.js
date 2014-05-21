@@ -116,7 +116,7 @@ module.exports = function (grunt) {
         createTag: true,
         tagName: 'v%VERSION%',
         tagMessage: 'Version %VERSION%',
-        commitFiles: '<%= bump.options.files =>',
+        commitFiles: '<%= bump.options.files %>',
         commitMessage: 'Bumped version to v%VERSION%'
       }
     },
