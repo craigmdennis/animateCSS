@@ -1,5 +1,18 @@
+<a name="1.1.3-0"></a>
+### 1.1.3-0 (2014-05-21)
+
+
+#### Bug Fixes
+
+* stop grunt-bump from trying to bump the CHANGELOG.md ([d06d4126](https://github.com/craigmdennis/animateCSS/commit/d06d4126731efbb8b01f8926d22a9c86bc337757))
+
+
 <a name="1.1.2-2"></a>
 ### 1.1.2-2 (2014-05-21)
+
+#### Bug Fixes
+
+* Remove private flag to allow Bower registration
 
 
 <a name="1.1.2-2"></a>
