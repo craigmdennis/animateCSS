@@ -34,7 +34,7 @@ $(document).ready( function(){
 }
 ```
 
-When using `infinite: true` and a delay, the delay will only occur before the first loop
+When using `infinite: true` and a delay, the delay will only occur before the first loop, not on every loop.
 
 ## Examples
 
@@ -46,7 +46,7 @@ $('#your-id').animateCSS('fadeIn');
 ### With callback
 ```js
 $('#your-id').animateCSS('fadeIn', function(){
-    alert('Boom! Animation Complete');
+    console.log('Boom! Animation Complete');
 });
 ```
 
@@ -60,17 +60,35 @@ $('#your-id').animateCSS('fadeIn', {delay: 500});
 $('#your-id').animateCSS('fadeIn', {
   delay: 1000,
   callback: function(){
-    alert('Boom! Animation Complete');
+    console.log('Boom! Animation Complete');
   }
 });
+```
+
+### Chain multiple animations
+If you use the standard jQuery chaining mechanism, each animation will fire at the same time so you have to include the next animation in the callback.
+```js
+$('#your-id').animateCSS('fadeInUp', function() {
+  console.log('Boom! First animation Complete');
+  $(this).animateCSS("fadeOutUp", function(){
+    console.log('Boom Boom! Second animation Complete');
+  })
+});
+```
+
+### Offset animations
+You can offset animations by using the delay mechanism
+```js
+$('#your-id').animateCSS('fadeIn');
+$('#another-id').animateCSS('fadeIn', {delay:100});
 ```
 
 If you want to hide an element when the page loads and then apply an effect, it might look something like this:
 
 ```css
-  .js #your-id {
-      visibility:hidden;
-  }
+.js #your-id {
+  visibility:hidden;
+}
 ```
 ```js
 $(window).load( function(){
@@ -81,9 +99,6 @@ $(window).load( function(){
 ```
 
 ## Release History
-1.1.0
-- Rewrite in CoffeeScript
-- Allow custom `.animated` class
-- Allow for `.infinite` animation
-- Add grunt for consistent build output
-- Add Bower support
+Please consult the official [changelog][changelog]
+
+[changelog]: https://github.com/craigmdennis/animateCSS/blob/master/CHANGELOG.md
