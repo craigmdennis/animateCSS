@@ -1,5 +1,5 @@
 {
-  "name": "animatecss",
+  "name": "animateCSS",
   "description": "A jQuery plugin to dynamically apply animate.css animations with callbacks",
   "main": "dist/jquery.animatecss.js",
   "version": "1.0.7",

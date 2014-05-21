@@ -1,4 +1,4 @@
-/*! animatecss - v1.0.6 - 2014-05-21
+/*! animateCSS - v1.0.6 - 2014-05-21
 * https://github.com/craigmdennis/animatecss
 * Copyright (c) 2014 Craig Dennis; Licensed MIT */
 
@@ -10,10 +10,9 @@
 
   $.fn.extend({
     animateCSS: function(effect, options) {
-      var animate, callback, clean, complete, init, settings, transitionEnd, unhide;
+      var addClass, animate, callback, complete, init, removeClass, settings, transitionEnd, unhide;
       settings = {
-        effect: effect,
-        delay: false,
+        delay: 0,
         animationClass: "animated",
         infinite: false,
         callback: options,
@@ -30,7 +29,12 @@
         if (settings.infinite === true) {
           settings.animationClass += " infinite";
         }
-        return element.addClass(settings.effect + " " + settings.animationClass + " ");
+        return setTimeout(function() {
+          return addClass(element);
+        }, settings.delay);
+      };
+      addClass = function(element) {
+        return element.addClass(effect + " " + settings.animationClass + " ");
       };
       unhide = function(element) {
         if (element.css("visibility") === "hidden") {
@@ -40,12 +44,12 @@
           return element.show();
         }
       };
-      clean = function(element) {
-        return element.removeClass(settings.effect + " " + settings.animationClass);
+      removeClass = function(element) {
+        return element.removeClass(effect + " " + settings.animationClass);
       };
       callback = function(element) {
         if (settings.infinite === false) {
-          clean(element);
+          removeClass(element);
         }
         if (typeof settings.callback === "function") {
           return settings.callback.call(this);
