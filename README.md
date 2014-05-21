@@ -15,7 +15,7 @@ In your web page:
 
 ```html
 <script src="jquery.js"></script>
-<script src="dist/animatecss.min.js"></script>
+<script src="dist/animateCSS.min.js"></script>
 <script>
 $(document).ready( function(){
   $('#your-id').animateCSS("fadeIn");
