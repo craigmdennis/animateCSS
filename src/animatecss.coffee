@@ -1,109 +1,59 @@
-# (function ($, window, document, undefined) {
-#
-#     // Function-level strict mode syntax
-#   'use strict';
-#
-#     $.fn.animateCSS = function (effect, delay, callback) {
-#
-#       // Return this to maintain chainability
-#       return this.each(function () {
-#
-#         // Cache $(this) for speed and compression
-#         var $this = $(this),
-#             transitionEnd = "webkitAnimationEnd oanimationend msAnimationEnd animationend",
-#             animated = "animated",
-#             visibility = "visibility",
-#             visible = "visible",
-#             hidden = "hidden";
-#
-#         // Create a function we can call later
-#         function run() {
-#
-#           // Add the animation effect with classes
-#           $this.addClass( animated + " " + effect);
-#
-#           // Check if the elemenr has been hidden to start with
-#           if ($this.css( visibility ) === hidden) {
-#
-#             // If it has, show it (after the class has been added)
-#             $this.css( visibility, visible);
-#
-#           }
-#
-#           // If the element is hidden
-#           if ($this.is(":" + hidden)) {
-#
-#             // Show it
-#             $this.show();
-#
-#           }
-#
-#           // Event triggered when the animation has finished
-#           $this.bind( transitionEnd, function () {
-#
-#             // Remove the classes so they can be added again later
-#             $this.removeClass(animated + " " + effect);
-#
-#             // Add a callback event
-#             if (typeof callback === "function") {
-#
-#               // Execute the callback
-#               callback.call(this);
-#
-#               // Unbind the event handlers
-#               $this.unbind( transitionEnd );
-#
-#             }
-#
-#           });
-#
-#         }
-#
-#         // Check if delay exists or if it"s a callback
-#         if (!delay || typeof delay === "function") {
-#
-#           // If it"s a callback, move it to callback so we can call it later
-#           callback = delay;
-#
-#           // Run the animation (without delay)
-#           run();
-#
-#         } else {
-#
-#           // Start a counter so we can delay the animation if required
-#           setTimeout( run, delay );
-#
-#         }
-#
-#       });
-#
-#     };
-#
-# })(jQuery, window, document);
-
+'use strict';
 
 # Reference jQuery
 $ = jQuery
 
 # Adds plugin object to jQuery
 $.fn.extend
+
   # Change pluginName to your plugin's name.
-  pluginName: (options) ->
+  animateCSS: (effect, options) ->
     # Default settings
     settings =
-      option1: true
-      option2: false
+      effect: effect
+      delay: false
+      animationClass: "animated",
+      infinite: false
+      callback: options
       debug: false
+
+    # Vendor prefixed transition callbacks
+    transitionEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend"
 
     # Merge default settings with options.
     settings = $.extend settings, options
 
-    # Simple logger.
-    log = (msg) ->
-      console?.log msg if settings.debug
+    init = ( element ) ->
+      animate( element )
+      unhide( element )
+      complete( element )
 
-    # _Insert magic here._
-    return @each ()->
-      log "Preparing magic show."
-      # You can use your settings in here now.
-      log "Option 1 value: #{settings.option1}"
+    # Add the animation effect with classes
+    animate = ( element ) ->
+      if settings.infinite == true
+        settings.animationClass += " infinite"
+      element.addClass( settings.effect + " " + settings.animationClass + " ")
+
+    # Check if the element has been hidden to start with
+    unhide = ( element ) ->
+      element.css("visibility", "visible") if element.css( "visibility" ) == "hidden"
+      element.show() if element.is(":hidden")
+
+    # Remove the animation classes the were applied
+    clean = ( element ) ->
+      element.removeClass( settings.effect + " " + settings.animationClass )
+
+    callback = ( element ) ->
+      clean( element ) if settings.infinite == false
+      if typeof settings.callback == "function"
+        settings.callback.call(this)
+
+    # Event triggered when the animation has finished
+    complete = ( element ) ->
+      element.one( transitionEnd, ->
+        callback( element )
+      )
+
+    return @each () ->
+
+      init( $(this) );

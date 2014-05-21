@@ -14,16 +14,10 @@ module.exports = function (grunt) {
       '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
       '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
       '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-      ' Licensed MIT */\n',
+      ' Licensed MIT */\n\n',
     // Task configuration.
     clean: {
-      files: ['dist']
-    },
-
-    // Automatically inject Bower components into the HTML file
-    bowerInstall: {
-      src: ['src/index.jade'],
-      ignorePath: 'test/'
+      files: ['dist', '.tmp']
     },
 
     concat: {
@@ -32,7 +26,7 @@ module.exports = function (grunt) {
         stripBanners: true
       },
       dist: {
-        src: ['src/<%= pkg.name %>.js'],
+        src: ['.tmp/<%= pkg.name %>.js'],
         dest: 'dist/jquery.<%= pkg.name %>.js'
       }
     },
@@ -47,14 +41,6 @@ module.exports = function (grunt) {
       }
     },
 
-    qunit: {
-      all: {
-        options: {
-          urls: ['http://localhost:9000/test/<%= pkg.name %>.html']
-        }
-      }
-    },
-
     jade: {
       options: {
         pretty: true
@@ -62,9 +48,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: 'src',
-          dest: 'test/',
-          src: 'index.jade',
+          cwd: 'test/',
+          dest: '.tmp/',
+          src: '*.jade',
           ext: '.html'
         }]
       },
@@ -76,7 +62,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: 'src',
           src: '{,*/}*.coffee',
-          dest: 'test/',
+          dest: '.tmp/',
           ext: '.js'
         }]
       }
@@ -92,17 +78,11 @@ module.exports = function (grunt) {
         },
         src: 'Gruntfile.js'
       },
-      src: {
+      dist: {
         options: {
           jshintrc: 'src/.jshintrc'
         },
-        src: ['src/**/*.js']
-      },
-      test: {
-        options: {
-          jshintrc: 'test/.jshintrc'
-        },
-        src: ['test/**/*.js']
+        src: ['.tmp/{,*/}*.js']
       }
     },
 
@@ -112,41 +92,53 @@ module.exports = function (grunt) {
         tasks: ['jshint:gruntfile']
       },
       jade: {
-        files: ['src/index.jade'],
+        files: ['src/*.jade'],
         tasks: ['jade']
-      },
-      bower: {
-        files: ['bower.json'],
-        tasks: ['bowerInstall']
       },
       coffee: {
         files: ['src/{,*/}*.coffee'],
         tasks: ['coffee']
       },
-      src: {
-        files: '<%= jshint.src.src %>',
-        tasks: ['jshint:src', 'qunit']
-      },
-      test: {
-        files: '<%= jshint.test.src %>',
-        tasks: ['jshint:test', 'qunit']
-      },
+      livereload: {
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        },
+        files: [
+          '.tmp/{,*/}*.*',
+        ]
+      }
+    },
+
+    bump: {
+      options: {
+        files: ['package.json', 'bower.json', '<%= pkg.name %>.jquery.json'],
+        push: false
+      }
     },
 
     connect: {
-      server: {
+      options: {
+        hostname: '0.0.0.0',
+        livereload: 35729,
+        port: 9000
+      },
+      livereload: {
         options: {
-          hostname: '0.0.0.0',
-          port: 9000
+          open: true,
+          base: [
+            '.tmp/',
+            'src/'
+          ]
         }
-      }
+      },
     }
   });
 
   // Default task.
   grunt.registerTask('default', [
     'clean',
-    'test', // jade, coffeescript, jshint, qunit
+    'compile',
+    'jshint:dist',
     'concat',
     'uglify',
   ]);
@@ -155,11 +147,6 @@ module.exports = function (grunt) {
   grunt.registerTask('compile', [
     'newer:coffee',
     'newer:jade'
-  ]);
-
-  // Install Bower components
-  grunt.registerTask('bowerInstall', [
-    'bower'
   ]);
 
   // Server task
@@ -172,11 +159,5 @@ module.exports = function (grunt) {
     'compile', // jade, coffeescript
     'connect',
     'watch'
-  ]);
-
-  grunt.registerTask('test', [
-    'compile', // jade, coffeescript
-    'jshint',
-    'qunit'
   ]);
 };
