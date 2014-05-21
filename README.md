@@ -8,14 +8,14 @@ A jQuery plugin to dynamically apply [Dan Eden's animate.css][animate.css] anima
 
 Download the [production version][min] or the [development version][max].
 
-[min]: https://raw.github.com/craigmdennis/animateCSS/master/dist/jquery.animateCSS.min.js
-[max]: https://raw.github.com/craigmdennis/animateCSS/master/dist/jquery.animateCSS.js
+[min]: https://raw.github.com/craigmdennis/animateCSS/master/dist/jquery.animatecss.min.js
+[max]: https://raw.github.com/craigmdennis/animateCSS/master/dist/jquery.animatecss.js
 
 In your web page:
 
 ```html
 <script src="jquery.js"></script>
-<script src="dist/animateCSS.min.js"></script>
+<script src="dist/animatecss.min.js"></script>
 <script>
 $(document).ready( function(){
   $('#your-id').animateCSS("fadeIn");
