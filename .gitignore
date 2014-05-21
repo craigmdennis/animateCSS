@@ -1,7 +1,5 @@
 node_modules
-.tmp
-.sass-cache
 bower_components
-
+/.tmp
+/test
 .DS_Store
-.sublime-workspace

@@ -1,44 +1,104 @@
-Use the animate.css animations from http://daneden.me/animate/
+# Animate CSS jQuery Plugin
 
-## USAGE:
+A jQuery plugin to dynamically apply [Dan Eden's animate.css][animate.css] animations with callbacks
 
-Basic
-<pre>
+[animate.css]: http://daneden.github.io/animate.css/
+
+## Getting Started
+
+Download the [production version][min] or the [development version][max].
+
+[min]: https://raw.github.com/craigmdennis/animateCSS/master/dist/jquery.animatecss.min.js
+[max]: https://raw.github.com/craigmdennis/animateCSS/master/dist/jquery.animatecss.js
+
+In your web page:
+
+```html
+<script src="jquery.js"></script>
+<script src="dist/animatecss.min.js"></script>
+<script>
+$(document).ready( function(){
+  $('#your-id').animateCSS("fadeIn");
+});
+</script>
+```
+
+## Documentation
+
+```js
+{
+  infinite: false, // True or False
+  animationClass: "animate", // Can be any class
+  delay: 0 // Can be any value (in ms)
+  callback: // Any function
+}
+```
+
+When using `infinite: true` and a delay, the delay will only occur before the first loop, not on every loop.
+
+## Examples
+
+### Basic
+```js
 $('#your-id').animateCSS('fadeIn');
-</pre>
+```
 
-With callback
-<pre>
+### With callback
+```js
 $('#your-id').animateCSS('fadeIn', function(){
-    alert('Boom! Animation Complete');
+    console.log('Boom! Animation Complete');
 });
-</pre>
+```
 
-With delay (in ms)
-<pre>
-$('#your-id').animateCSS('fadeIn', 500);
-</pre>
+### With delay (in ms)
+```js
+$('#your-id').animateCSS('fadeIn', {delay: 500});
+```
 
-With delay AND callback
-<pre>
-$('#your-id').animateCSS('fadeIn', 1000, function(){
-    alert('Boom! Animation Complete');
+### With delay AND callback
+```js
+$('#your-id').animateCSS('fadeIn', {
+  delay: 1000,
+  callback: function(){
+    console.log('Boom! Animation Complete');
+  }
 });
-</pre>
+```
+
+### Chain multiple animations
+If you use the standard jQuery chaining mechanism, each animation will fire at the same time so you have to include the next animation in the callback.
+```js
+$('#your-id').animateCSS('fadeInUp', function() {
+  console.log('Boom! First animation Complete');
+  $(this).animateCSS("fadeOutUp", function(){
+    console.log('Boom Boom! Second animation Complete');
+  })
+});
+```
+
+### Offset animations
+You can offset animations by using the delay mechanism
+```js
+$('#your-id').animateCSS('fadeIn');
+$('#another-id').animateCSS('fadeIn', {delay:100});
+```
 
 If you want to hide an element when the page loads and then apply an effect, it might look something like this:
-<pre>
-&lt;style&gt;
-    .js #your-id {
-        visibility:hidden;
-    }
-&lt;/style&gt;
 
+```css
+.js #your-id {
+  visibility:hidden;
+}
+```
+```js
 $(window).load( function(){
-    $('#your-id').animateCSS('fadeIn', 1000, function(){
-        alert('Boom! Animation Complete');
-    });
+  $('#your-id').animateCSS('fadeIn', function(){
+    alert('Boom! Animation Complete');
+  });
 });
-</pre>
+```
 
-Remember to use a .js (or .no-js depending on how you role) so that the element still displays for non javascript users (and Google previews).
+## Release History
+Please consult the official [changelog][changelog]
+
+[changelog]: https://github.com/craigmdennis/animateCSS/blob/master/CHANGELOG.md
