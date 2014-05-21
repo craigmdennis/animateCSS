@@ -116,6 +116,12 @@ module.exports = function (grunt) {
       }
     },
 
+    changelog: {
+      options: {
+        editor: 'atom -w'
+      }
+    },
+
     connect: {
       options: {
         hostname: '0.0.0.0',

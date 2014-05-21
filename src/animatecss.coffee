@@ -8,8 +8,10 @@ $.fn.extend
 
   # Change pluginName to your plugin's name.
   animateCSS: (effect, options) ->
+
     # Default settings
     settings =
+      effect: effect
       delay: 0
       animationClass: "animated",
       infinite: false
@@ -22,23 +24,25 @@ $.fn.extend
     # Merge default settings with options.
     settings = $.extend settings, options
 
+    # Call everything we need, in order
     init = ( element ) ->
       animate( element )
-      unhide( element )
-      complete( element )
 
     # Add the animation effect with classes
     animate = ( element ) ->
       if settings.infinite == true
         settings.animationClass += " infinite"
 
-      # Run a timer regardless of delay as 0 will fire instantly anyway
+      # Run a timer regardless of delay (as 0 will fire instantly anyway)
       setTimeout  ->
+        unhide( element )
         addClass( element )
+        complete( element )
       , settings.delay
 
+    # Add the animation ad effect classes to kick everything off
     addClass = ( element ) ->
-      element.addClass( effect + " " + settings.animationClass + " ")
+      element.addClass( settings.effect + " " + settings.animationClass + " ")
 
     # Check if the element has been hidden to start with
     unhide = ( element ) ->
@@ -47,12 +51,16 @@ $.fn.extend
 
     # Remove the animation classes the were applied
     removeClass = ( element ) ->
-      element.removeClass( effect + " " + settings.animationClass )
+      element.removeClass( settings.effect + " " + settings.animationClass )
 
     callback = ( element ) ->
+      # Only remove the animation classes if `infinite` is false
       removeClass( element ) if settings.infinite == false
+
+      # Check if the callback is a function
       if typeof settings.callback == "function"
-        settings.callback.call(this)
+        # Execute the callback and return the origin element as `this`
+        settings.callback.call( element )
 
     # Event triggered when the animation has finished
     complete = ( element ) ->
@@ -60,6 +68,8 @@ $.fn.extend
         callback( element )
       )
 
+    # Maintain chainability
     return @each () ->
 
+      # Pass in the element
       init( $(this) );

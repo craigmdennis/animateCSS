@@ -1,4 +1,4 @@
-/*! animateCSS - v1.0.6 - 2014-05-21
+/*! animateCSS - v1.1.0 - 2014-05-21
 * https://github.com/craigmdennis/animatecss
 * Copyright (c) 2014 Craig Dennis; Licensed MIT */
 
@@ -12,6 +12,7 @@
     animateCSS: function(effect, options) {
       var addClass, animate, callback, complete, init, removeClass, settings, transitionEnd, unhide;
       settings = {
+        effect: effect,
         delay: 0,
         animationClass: "animated",
         infinite: false,
@@ -21,20 +22,20 @@
       transitionEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
       settings = $.extend(settings, options);
       init = function(element) {
-        animate(element);
-        unhide(element);
-        return complete(element);
+        return animate(element);
       };
       animate = function(element) {
         if (settings.infinite === true) {
           settings.animationClass += " infinite";
         }
         return setTimeout(function() {
-          return addClass(element);
+          unhide(element);
+          addClass(element);
+          return complete(element);
         }, settings.delay);
       };
       addClass = function(element) {
-        return element.addClass(effect + " " + settings.animationClass + " ");
+        return element.addClass(settings.effect + " " + settings.animationClass + " ");
       };
       unhide = function(element) {
         if (element.css("visibility") === "hidden") {
@@ -45,14 +46,14 @@
         }
       };
       removeClass = function(element) {
-        return element.removeClass(effect + " " + settings.animationClass);
+        return element.removeClass(settings.effect + " " + settings.animationClass);
       };
       callback = function(element) {
         if (settings.infinite === false) {
           removeClass(element);
         }
         if (typeof settings.callback === "function") {
-          return settings.callback.call(this);
+          return settings.callback.call(element);
         }
       };
       complete = function(element) {
