@@ -1,5 +1,5 @@
-/*! animateCSS - v1.1.0 - 2014-05-21
-* https://github.com/craigmdennis/animatecss
+/*! animateCSS - v1.1.3-1 - 2014-05-27
+* https://github.com/craigmdennis/animateCSS
 * Copyright (c) 2014 Craig Dennis; Licensed MIT */
 
 (function() {
