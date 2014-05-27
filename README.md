@@ -6,6 +6,14 @@ A jQuery plugin to dynamically apply [Dan Eden's animate.css][animate.css] anima
 
 ## Getting Started
 
+### Bower
+Install with [Bower][bower]
+`bower install animateCSS`
+
+[bower]: http://bower.io/
+
+### Download
+
 Download the [production version][min] or the [development version][max].
 
 [min]: https://raw.github.com/craigmdennis/animateCSS/master/dist/jquery.animatecss.min.js
@@ -28,7 +36,7 @@ $(document).ready( function(){
 ```js
 {
   infinite: false, // True or False
-  animationClass: "animate", // Can be any class
+  animationClass: "animated", // Can be any class
   delay: 0 // Can be any value (in ms)
   callback: // Any function
 }
@@ -93,7 +101,7 @@ If you want to hide an element when the page loads and then apply an effect, it 
 ```js
 $(window).load( function(){
   $('#your-id').animateCSS('fadeIn', function(){
-    alert('Boom! Animation Complete');
+    console.log('Boom! Animation Complete');
   });
 });
 ```
