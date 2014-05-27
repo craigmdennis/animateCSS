@@ -1,4 +1,4 @@
-/*! animateCSS - v1.1.3-1 - 2014-05-27
+/*! animateCSS - v1.1.5 - 2014-05-27
 * https://github.com/craigmdennis/animateCSS
 * Copyright (c) 2014 Craig Dennis; Licensed MIT */
 
@@ -14,19 +14,19 @@
       settings = {
         effect: effect,
         delay: 0,
-        animationClass: "animated",
+        animationClass: 'animated',
         infinite: false,
         callback: options,
         debug: false
       };
-      transitionEnd = "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
+      transitionEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
       settings = $.extend(settings, options);
       init = function(element) {
         return animate(element);
       };
       animate = function(element) {
         if (settings.infinite === true) {
-          settings.animationClass += " infinite";
+          settings.animationClass += ' infinite';
         }
         return setTimeout(function() {
           unhide(element);
@@ -35,24 +35,24 @@
         }, settings.delay);
       };
       addClass = function(element) {
-        return element.addClass(settings.effect + " " + settings.animationClass + " ");
+        return element.addClass(settings.effect + ' ' + settings.animationClass + ' ');
       };
       unhide = function(element) {
-        if (element.css("visibility") === "hidden") {
-          element.css("visibility", "visible");
+        if (element.css('visibility') === 'hidden') {
+          element.css('visibility', 'visible');
         }
-        if (element.is(":hidden")) {
+        if (element.is(':hidden')) {
           return element.show();
         }
       };
       removeClass = function(element) {
-        return element.removeClass(settings.effect + " " + settings.animationClass);
+        return element.removeClass(settings.effect + ' ' + settings.animationClass);
       };
       callback = function(element) {
         if (settings.infinite === false) {
           removeClass(element);
         }
-        if (typeof settings.callback === "function") {
+        if (typeof settings.callback === 'function') {
           return settings.callback.call(element);
         }
       };

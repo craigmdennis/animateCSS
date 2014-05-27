@@ -80,7 +80,7 @@ module.exports = function (grunt) {
       },
       dist: {
         options: {
-          jshintrc: 'src/.jshintrc'
+          jshintrc: '.jshintrc'
         },
         src: ['.tmp/{,*/}*.js']
       }
