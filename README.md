@@ -4,6 +4,8 @@ A jQuery plugin to dynamically apply [Dan Eden's animate.css][animate.css] anima
 
 [animate.css]: http://daneden.github.io/animate.css/
 
+[![Code Climate](https://codeclimate.com/github/craigmdennis/animateCSS.png)](https://codeclimate.com/github/craigmdennis/animateCSS)
+
 ## Getting Started
 
 ### Bower
