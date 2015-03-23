@@ -16,6 +16,7 @@ $.fn.extend
       animationClass: 'animated',
       infinite: false
       callback: options
+      duration: 1000
       debug: false
 
     # Vendor prefixed transition callbacks
@@ -35,6 +36,7 @@ $.fn.extend
 
       # Run a timer regardless of delay (as 0 will fire instantly anyway)
       setTimeout  ->
+        setDuration( element )
         unhide( element )
         addClass( element )
         complete( element )
@@ -53,20 +55,27 @@ $.fn.extend
     removeClass = ( element ) ->
       element.removeClass( settings.effect + ' ' + settings.animationClass )
 
+    # Add an animation duration
+    setDuration = ( element ) ->
+      element.css
+        '-webkit-animation-duration': settings.duration + 'ms',
+        '-moz-animation-duration': settings.duration + 'ms'
+        '-o-animation-duration': settings.duration + 'ms'
+        'animation-duration': settings.duration + 'ms'
+
     callback = ( element ) ->
       # Only remove the animation classes if `infinite` is false
       removeClass( element ) if settings.infinite == false
 
       # Check if the callback is a function
       if typeof settings.callback == 'function'
-        # Execute the callback and return the origin element as `this`
+        # Execute the callback and return the original element as `this`
         settings.callback.call( element )
 
     # Event triggered when the animation has finished
     complete = ( element ) ->
-      element.one( transitionEnd, ->
+      element.one transitionEnd, ->
         callback( element )
-      )
 
     # Maintain chainability
     return @each () ->
