@@ -1,6 +1,6 @@
-/*! animateCSS - v1.1.5 - 2014-05-27
+/*! animateCSS - v1.1.5 - 2015-03-23
 * https://github.com/craigmdennis/animateCSS
-* Copyright (c) 2014 Craig Dennis; Licensed MIT */
+* Copyright (c) 2015 Craig Dennis; Licensed MIT */
 
 (function() {
   'use strict';
@@ -10,13 +10,14 @@
 
   $.fn.extend({
     animateCSS: function(effect, options) {
-      var addClass, animate, callback, complete, init, removeClass, settings, transitionEnd, unhide;
+      var addClass, animate, callback, complete, init, removeClass, setDuration, settings, transitionEnd, unhide;
       settings = {
         effect: effect,
         delay: 0,
         animationClass: 'animated',
         infinite: false,
         callback: options,
+        duration: 1000,
         debug: false
       };
       transitionEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
@@ -29,6 +30,7 @@
           settings.animationClass += ' infinite';
         }
         return setTimeout(function() {
+          setDuration(element);
           unhide(element);
           addClass(element);
           return complete(element);
@@ -47,6 +49,14 @@
       };
       removeClass = function(element) {
         return element.removeClass(settings.effect + ' ' + settings.animationClass);
+      };
+      setDuration = function(element) {
+        return element.css({
+          '-webkit-animation-duration': settings.duration + 'ms',
+          '-moz-animation-duration': settings.duration + 'ms',
+          '-o-animation-duration': settings.duration + 'ms',
+          'animation-duration': settings.duration + 'ms'
+        });
       };
       callback = function(element) {
         if (settings.infinite === false) {

@@ -40,6 +40,7 @@ $(document).ready( function(){
   infinite: false, // True or False
   animationClass: "animated", // Can be any class
   delay: 0 // Can be any value (in ms)
+  duration: 1000 // Can be any value (in ms)
   callback: // Any function
 }
 ```
@@ -73,6 +74,11 @@ $('#your-id').animateCSS('fadeIn', {
     console.log('Boom! Animation Complete');
   }
 });
+```
+
+### With duration (in ms)
+```js
+$('#your-id').animateCSS('fadeIn', {duration: 3000});
 ```
 
 ### Chain multiple animations

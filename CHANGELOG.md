@@ -1,3 +1,11 @@
+<a name="1.2.0"></a>
+## 1.2.0 (2015-03-23)
+
+#### Features
+
+* add animation duration option ([e1ef7983](https://github.com/craigmdennis/animatecss/commit/e1ef7983c25fec49254611ca4e19a88e5f4b1422))
+
+
 <a name="1.1.5"></a>
 ### 1.1.5 (2014-05-27)
 
