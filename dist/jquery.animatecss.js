@@ -67,8 +67,7 @@
         }
       };
       complete = function(element) {
-        return element.one(transitionEnd, function(event) {
-          event.stopPropagation();
+        return element.one(transitionEnd, function() {
           return callback(element);
         });
       };
