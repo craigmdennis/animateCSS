@@ -1,4 +1,4 @@
-/*! animateCSS - v1.2.1 - 2015-03-23
+/*! animateCSS - v1.2.1 - 2015-10-18
 * https://github.com/craigmdennis/animateCSS
 * Copyright (c) 2015 Craig Dennis; Licensed MIT */
 
@@ -67,7 +67,8 @@
         }
       };
       complete = function(element) {
-        return element.one(transitionEnd, function() {
+        return element.one(transitionEnd, function(event) {
+          event.stopPropagation();
           return callback(element);
         });
       };
