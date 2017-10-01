@@ -74,7 +74,8 @@ $.fn.extend
 
     # Event triggered when the animation has finished
     complete = ( element ) ->
-      element.one transitionEnd, ->
+      element.one transitionEnd, (event) ->
+        event.stopPropagation()
         callback( element )
 
     # Maintain chainability
